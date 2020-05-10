@@ -1,0 +1,17 @@
+function [window] = make_window(w,f)
+if w ~= 0
+    if mod(w, 2) == 0  
+      w = w + 1;
+    end
+    halff = f/2;  
+    halfwin = 0.5 * ( 1 + cos( pi * (0:(w-1)/2)/(w-1)/2));
+    window = zeros(1, f);
+    acthalflen = min(f/2, (w-1)/2);
+    window((halff+1):(halff+acthalflen)) = halfwin(1:acthalflen);
+    window((halff+1):-1:(halff-acthalflen+2)) = halfwin(1:acthalflen);
+    
+else
+    window = ones(1,f);
+end
+
+

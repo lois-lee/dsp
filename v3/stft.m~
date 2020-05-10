@@ -1,0 +1,20 @@
+function D = stft(signal, f, w, h)
+
+% expect x as a row
+if size(signal,1) > 1
+  signal = signal';
+end
+
+win = make_window(w,f);
+len = length(signal);
+
+counter = 1;
+D = zeros((1+f/2),1+floor((len-f)/h));
+
+for b = 0:h:(len-f)
+  u = win.*signal((b+1):(b+f));
+  t = fft(u);
+  D(:,counter) = t(1:(1+f/2))';
+    
+  counter = counter+1;
+end
